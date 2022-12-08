@@ -10,6 +10,8 @@ import logo from '../images/logo.png';
 import { useSigninUserMutation, useSignupUserMutation } from '../features/api/API';
 import { setUsers } from '../features/userSlice';
 import { useAppDispatch} from '../app/hooks';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 const StyledBox = styled(Box)`
@@ -126,8 +128,8 @@ function Login() {
     const [isRegister, setIsRegister] = useState(true)
     const [agent, setAgent] = useState({firstName: '', lastName: '', email: '', password: '', phone: '', confirmPassword: '', apartmentNo: '', profilePicture: ''});
     const [image, setImage] = useState('')
-    const  [ signupUser, {isSuccess: signupIsSuccess}] = useSignupUserMutation();
-    const [ signinUser, { data, isSuccess: signinIsSuccess}] = useSigninUserMutation();
+    const  [ signupUser, {isSuccess: signupIsSuccess, isLoading: signupIsLoading}] = useSignupUserMutation();
+    const [ signinUser, { data, isSuccess: signinIsSuccess, isLoading: signinIsLoading}] = useSigninUserMutation();
    const handleChange = (e: any) => {
   //  const name = e.target.name;
   //  const value = e.target.value;
@@ -179,11 +181,20 @@ useEffect(() => {
     navigate('/');
     setIsRegister(true);
   }
-}, [signinIsSuccess, signupIsSuccess, data?.data, data?.token, data?.refreshToken, dispatch, navigate])
+  if(signupIsLoading) {
+
+    (<Box sx={{justifyContent: 'center', display: 'flex', alignItems: 'center' }}><CircularProgress color="inherit" /></Box>)
+  }
+  if(signinIsLoading) {
+
+    (<Box sx={{justifyContent: 'center', display: 'flex', alignItems: 'center' }}><CircularProgress color="inherit" /></Box>)
+  }
+}, [signinIsLoading, signupIsLoading, signinIsSuccess, signupIsSuccess, data?.data, data?.token, data?.refreshToken, dispatch, navigate])
 
 
  
   return (
+    
     <StyledBox style={{ height: isRegister? '100vh': '100%'}}>
         <Form onSubmit={handleSubmit} >
         {isRegister ? 

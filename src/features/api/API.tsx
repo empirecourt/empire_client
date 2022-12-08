@@ -2,12 +2,13 @@ import {  createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { RootState } from '../../app/store';
 import { BookingModel } from '../models/bookingModel';
 import { UserModel } from '../models/userModel';
+import dotenv from 'dotenv';
 
 
 export const API = createApi({
   reducerPath: 'API',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:5000',
+    baseUrl: process.env.REACT_APP_SERVER_URL || 'http://localhost:5000',
     prepareHeaders:  (headers, { getState }) => {
       const token = ( getState() as RootState).userState.token
       console.log('states: ', token);

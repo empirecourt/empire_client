@@ -76,7 +76,7 @@ width: 80px;
 height: 80px;
 border-radius: 20px;
 `
-const Label = styled.p`
+const Label = styled.label`
 
 `
 
@@ -145,16 +145,21 @@ if(isError) {
         </Select>
       </FormControl>
 </Grid>
+
 <Grid item lg={12} md={12} sm={12} xs={12}>
+<Label>Start date</Label>
 <TextField  fullWidth type='date' name='startDate' value={formData.startDate} onChange={handleChange} />
 </Grid>
 <Grid item lg={12} md={12} sm={12} xs={12}>
+<Label>Start time</Label>
 <TextField fullWidth type='time' name='startTime' value={formData.startTime} onChange={handleChange} />
 </Grid>
 <Grid item lg={12} md={12} sm={12} xs={12}>
+<Label>End date</Label>
 <TextField fullWidth type='date' name='endDate' value={formData.endDate} onChange={handleChange} />
 </Grid>
 <Grid item lg={12} md={12} sm={12} xs={12}>
+<Label>End date</Label>
 <TextField fullWidth type='time' name='endTime' value={formData.endTime} onChange={handleChange} />
 </Grid>
 <Grid item lg={12} md={12} sm={12} xs={12}>

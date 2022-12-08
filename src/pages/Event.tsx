@@ -15,8 +15,13 @@ height: 100vh;
 background-color: #313552;
 padding-bottom: 10px;
 `
-const StyledContainer = styled(Container)`
-
+const StyledContainer = styled.div`
+margin: 0 2%;
+width: auto;
+@media screen and (max-width: 900px) {
+  overflow-x: scroll;
+  margin: 0;
+}
 `
 
 const Thead = styled.thead`
@@ -33,6 +38,8 @@ margin-top: 0;
 width: 100%;
 margin-top: 20px;
 border-collapse: collapse;
+font-size: 0.9rem;
+
 `
 const Tr = styled.tr`
 
@@ -40,14 +47,15 @@ const Tr = styled.tr`
 const Th = styled.th`
 color: #fff;
 margin: 0;
+text-align: center;
 `
 const Td = styled.td`
 margin: 0;
 font-size: 0.9rem;
 border-bottom: 2px solid #c4c4c4;
-text-align: center;
 vertical-align: center;
 color: #fff;
+text-align: center;
 `
 
 
@@ -58,7 +66,7 @@ border-radius: 5px;
 margin-left: 5px;
 cursor: pointer;
 color: #fff;
-font-size: 0.8rem;
+font-size: 0.9rem;
 `
 const IconSpan = styled.span`
 margin-left: 2px;

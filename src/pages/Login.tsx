@@ -181,23 +181,26 @@ useEffect(() => {
     navigate('/');
     setIsRegister(true);
   }
-  if(signupIsLoading) {
-
-    (<Box sx={{justifyContent: 'center', display: 'flex', alignItems: 'center' }}><CircularProgress color="inherit" /></Box>)
-  }
-  if(signinIsLoading) {
-
-    (<Box sx={{justifyContent: 'center', display: 'flex', alignItems: 'center' }}><CircularProgress color="inherit" /></Box>)
-  }
-}, [signinIsLoading, signupIsLoading, signinIsSuccess, signupIsSuccess, data?.data, data?.token, data?.refreshToken, dispatch, navigate])
+  
+}, [signinIsSuccess, signupIsSuccess, data?.data, data?.token, data?.refreshToken, dispatch, navigate])
 
 
  
   return (
     
     <StyledBox style={{ height: isRegister? '100vh': '100%'}}>
-        <Form onSubmit={handleSubmit} >
+        <Form onSubmit={handleSubmit}>
+          <>
         {isRegister ? 
+        <>
+        {signinIsLoading ?
+          <Backdrop
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open>
+      <CircularProgress color="inherit" />
+       </Backdrop>
+
+        :
         <>
         <Grid container>
            <Grid item lg={4} md={4} sm={3} xs={1}></Grid>
@@ -230,9 +233,19 @@ useEffect(() => {
             </Grid>
             <Grid item lg={4} md={4} sm={3} xs={1}></Grid>
             </Grid>
-        </> 
-        
+        </>
+  
+         }
+         </>
         :
+        <>
+          {signupIsLoading ?
+          <Backdrop
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open>
+      <CircularProgress color="inherit" />
+       </Backdrop>
+       :
         <Grid container>
            <Grid item lg={3} md={3} sm={2} xs={1}></Grid>
             <Grid item lg={6} md={6} sm={8} xs={10}>
@@ -304,7 +317,10 @@ useEffect(() => {
     <Grid item lg={3} md={3} sm={2} xs={1}></Grid>
     </Grid>  
     </Grid>
-  }   
+}
+</>
+  } 
+  </>
   </Form>  
     </StyledBox>
   )

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useAppSelector } from '../app/hooks';
-import { useDeleteBookingMutation,useGetBookingsQuery } from '../features/api/API'
+import { useDeleteUserMutation,useGetUsersQuery } from '../features/api/API'
 import { selectCurrentUser } from '../features/userSlice';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -77,18 +77,19 @@ width: 30px;
 height: 30px;
 background-image: url('../../images/blank_avater.jpg');
 background-size: 100% 100%;
+margin-left: 10%;
 `
 const ActionContaner = styled.div`
 display: flex;
 justify-content: center;
 `
 
-function AllEvents() {
+function Users() {
     
 //   const {user} = useAppSelector(selectCurrentUser);
   {/* @ts-ignore:next-line */}
-    const {data} = useGetBookingsQuery();
-    const [deleteBooking] = useDeleteBookingMutation();
+    const {data} =  useGetUsersQuery();
+    const [deleteUser] = useDeleteUserMutation();
 console.log(data)
   return (
     <StyledBox>
@@ -97,14 +98,11 @@ console.log(data)
     <Tables>
     <Thead>
    <Tr>
-   <Th></Th>
-      <Th>Event</Th>
+   <Th>Image</Th>
       <Th>Name</Th>
       <Th>Apartment no</Th>
       <Th>Email</Th>
       <Th>Mobile</Th>
-      <Th>Start date & time</Th>
-      <Th>End date & time</Th>
       <Th>Action</Th>
    </Tr>
    </Thead>
@@ -116,15 +114,12 @@ console.log(data)
           {/* @ts-ignore:next-line */}
       <StyledAvatar src={result?.profilePicture} />
       </Td>
-      <Td>{result?.select}</Td>
       <Td>{result?.name}</Td>
       <Td>{result?.apartmentNo}</Td>
       <Td>{result?.email}</Td>
       <Td>{result?.phone}</Td>
-      <Td>{result?.startDate} {result?.startTime}</Td>
-      <Td>{result?.endDate} {result?.endTime}</Td>
       <Td><ActionContaner>
-          <DeleteContainer onClick={() => deleteBooking(result?._id)}>
+          <DeleteContainer onClick={() => deleteUser(result?._id)}>
           <DeleteForeverOutlinedIcon sx={{ fontSize: 15, marginBottom: -0.3  }} />
             <IconSpan>Delete</IconSpan>
           </DeleteContainer>
@@ -139,4 +134,4 @@ console.log(data)
   )
 }
 
-export default AllEvents
+export default Users

@@ -126,18 +126,19 @@ border-radius: 20px;
 function Login() {
 
     const [isRegister, setIsRegister] = useState(true)
-    const [agent, setAgent] = useState({firstName: '', lastName: '', email: '', password: '', phone: '', confirmPassword: '', apartmentNo: '', profilePicture: ''});
+    const initialData = {firstName: '', lastName: '', email: '', password: '', phone: '', confirmPassword: '', apartmentNo: '', profilePicture: ''}
+    const [form, setForm] = useState(initialData);
     const [image, setImage] = useState('')
     const  [ signupUser, {isSuccess: signupIsSuccess, isLoading: signupIsLoading}] = useSignupUserMutation();
     const [ signinUser, { data, isSuccess: signinIsSuccess, isLoading: signinIsLoading}] = useSigninUserMutation();
    const handleChange = (e: any) => {
-  //  const name = e.target.name;
-  //  const value = e.target.value;
-   setAgent(({...agent, [e.target.name]: e.target.value}))
+   const name = e.target.name;
+   const value = e.target.value;
+   setForm(({...form, [name]: value}))
    }
    const dispatch = useAppDispatch();
               
-console.log(agent);
+console.log(form);
 let navigate = useNavigate();
   
    const handleUpload = async () => {
@@ -153,7 +154,7 @@ let navigate = useNavigate();
   })
   .then(r => r.json())
   .then(data => {
-    setAgent({...agent, profilePicture: data.secure_url});
+    setForm({...form, profilePicture: data.secure_url});
       if (data.url) {
         toast.success('Uploaded successfully....')
        } 
@@ -164,9 +165,9 @@ let navigate = useNavigate();
     const handleSubmit = async (e: any) => { 
       e.preventDefault()
       if(isRegister === false) {
-        signupUser({...agent});
+        signupUser({...form});
       } else {
-        signinUser({...agent});
+        signinUser({...form});
       }
     }
     console.log(data);
@@ -175,14 +176,17 @@ useEffect(() => {
      dispatch(setUsers({ user: data?.data, token: data?.token , refreshToken: data?.refreshToken}));
      toast.success('signin successfully....')
       navigate('/homepage');
+      // setForm(initialData)
   }
   if(signupIsSuccess) {
     toast.success('signup successfully....');
     navigate('/');
+    setForm(initialData)
     setIsRegister(true);
+    
   }
   
-}, [signinIsSuccess, signupIsSuccess, data?.data, data?.token, data?.refreshToken, dispatch, navigate])
+}, [signinIsSuccess, signupIsSuccess, data?.data, data?.token, data?.refreshToken, dispatch, navigate, setForm])
 
 
  
@@ -215,10 +219,10 @@ useEffect(() => {
     <Grid container>
     
     <Grid item lg={12} md={12} sm={12} xs={12}>
-    <StyledTextField id="outlined-basic" type='email' label='Email' size='small' name='email' value={agent.email} onChange={handleChange} autoComplete="off" />
+    <StyledTextField id="outlined-basic" type='email' label='Email' size='small' name='email' value={form.email} onChange={handleChange} autoComplete="off" />
     </Grid>
     <Grid item lg={12} md={12} sm={12} xs={12}>
-    <StyledTextField id="outlined-basic" type='password' label='Password' size='small' name='password' value={agent.password} onChange={handleChange} autoComplete="off" />
+    <StyledTextField id="outlined-basic" type='password' label='Password' size='small' name='password' value={form.password} onChange={handleChange} autoComplete="off" />
     </Grid>
     <Grid item lg={12} md={12} sm={12} xs={12}>
         <SwitchBtn style={{marginLeft: 0}} onClick={() => setIsRegister(false)}>not registered ?</SwitchBtn>
@@ -262,8 +266,8 @@ useEffect(() => {
     </FormHeaderContainer>
     <AgentInfo>User Information</AgentInfo>
     <AgentImgContainer>
-   {agent.profilePicture ?
-   <AgentImage src={agent.profilePicture} />
+   {form.profilePicture ?
+   <AgentImage src={form.profilePicture} />
     :
     <>
     <ImgInput name='profilePicture' 
@@ -277,25 +281,25 @@ useEffect(() => {
     <FormInnerContainer>
     <Grid container>
     <Grid item lg={6} md={6} sm={6} xs={12}>
-    <StyledTextField id="outlined-basic" type='text' label='First Name' size='small' name='firstName' value={agent.firstName} onChange={handleChange} />
+    <StyledTextField id="outlined-basic" type='text' label='First Name' size='small' name='firstName' value={form.firstName} onChange={handleChange} />
     </Grid>
     <Grid item lg={6} md={6} sm={6} xs={12}>
-    <StyledTextField id="outlined-basic" type='text' label='Last Name' size='small' name='lastName' value={agent.lastName} onChange={handleChange} />
+    <StyledTextField id="outlined-basic" type='text' label='Last Name' size='small' name='lastName' value={form.lastName} onChange={handleChange} />
     </Grid>
     <Grid item lg={6} md={6} sm={6} xs={12}>
-    <StyledTextField id="outlined-basic" type='email' label='Email' size='small' name='email' value={agent.email} onChange={handleChange} autoComplete="off" />
+    <StyledTextField id="outlined-basic" type='email' label='Email' size='small' name='email' value={form.email} onChange={handleChange} autoComplete="off" />
     </Grid>
     <Grid item lg={6} md={6} sm={6} xs={12}>
-    <StyledTextField id="outlined-basic" type='password' label='Password' size='small' name='password' value={agent.password} onChange={handleChange} autoComplete="off" />
+    <StyledTextField id="outlined-basic" type='password' label='Password' size='small' name='password' value={form.password} onChange={handleChange} autoComplete="off" />
     </Grid>
     <Grid item lg={6} md={6} sm={6} xs={12}>
-    <StyledTextField id="outlined-basic" type='password' label='confirmPassword' size='small' name='confirmPassword' value={agent.confirmPassword} onChange={handleChange} />
+    <StyledTextField id="outlined-basic" type='password' label='confirmPassword' size='small' name='confirmPassword' value={form.confirmPassword} onChange={handleChange} />
     </Grid>
     <Grid item lg={6} md={6} sm={6} xs={12}>
-    <StyledTextField id="outlined-basic" type='number' label='Phone' size='small' name='phone' value={agent.phone} onChange={handleChange} />
+    <StyledTextField id="outlined-basic" type='number' label='Phone' size='small' name='phone' value={form.phone} onChange={handleChange} />
     </Grid>
      <Grid item lg={6} md={6} sm={6} xs={12}>
-    <StyledTextField id="outlined-basic" type='text' label='Apartment No' size='small' name='apartmentNo' value={agent.apartmentNo} onChange={handleChange} />
+    <StyledTextField id="outlined-basic" type='text' label='Apartment No' size='small' name='apartmentNo' value={form.apartmentNo} onChange={handleChange} />
     </Grid>
     <Grid item lg={6} md={6} sm={6} xs={12}></Grid>
     {/*<Grid item lg={6} md={6} sm={6} xs={12}>

@@ -81,7 +81,7 @@ tagTypes: ['Users','Bookings'],
     deleteUser: builder.mutation<{ success: boolean; id: number }, number>({
       query(id) {
         return {
-          url: `users/ ${id}`,
+          url: `users/${id}`,
           method: 'DELETE',
           // credentials: 'include'
         }

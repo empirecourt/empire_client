@@ -20,8 +20,10 @@ import { logoutUsers, selectCurrentUser } from '../features/userSlice';
 import { useDispatch } from 'react-redux';
 
 const Logo = styled.img`
-width: 6rem;
+width: 4rem;
+height: 2.8rem;
 cursor: pointer;
+border-radius: 10px;
 @media screen and (max-width: 900px) {
  margin-right: 32%;
 }
@@ -98,33 +100,39 @@ const dispatchLogOut = useDispatch();
             }}
           >
             <Button
-              onClick={() => navigate('/event')}
+              onClick={() => navigate('/adminPage')}
               sx={{ my: 2, color: '#383838', display: 'block' }}
             >
-              Event
+              Events
+            </Button>
+            <Button
+              onClick={() => navigate('/users')}
+              sx={{ my: 2, color: '#383838', display: 'block' }}
+            >
+              Users
             </Button>
           </Menu>
         </Box>
-        <Logo src={logo} alt='logo' onClick={() => navigate('/homepage')}/>
+        <Logo src={logo} alt='logo' onClick={() => navigate('/adminPage')}/>
         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex', justifyContent: 'center' } }}>
             <Button
               onClick={() => navigate('/adminPage')}
               sx={{ my: 2, color: 'white', display: 'block' }}
             >
-              ALL Event
+              Events
             </Button>
             <Button
-              onClick={() => navigate('/calendar')}
+              onClick={() => navigate('/users')}
               sx={{ my: 2, color: 'white', display: 'block' }}
             >
-              Calender
+              Users
             </Button>
         </Box>
         <Box sx={{ flexGrow: 0 }}>
           <Tooltip title="Open settings">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                {/* @ts-ignore:next-line */}
-              <Avatar alt={user?.name.charAt(0)} src={user?.profilePicture} />
+              <Avatar alt={user?.name.charAt(0)} src={''} />
             </IconButton>
           </Tooltip>
           <Menu
@@ -148,7 +156,7 @@ const dispatchLogOut = useDispatch();
                 <Typography textAlign="center">{setting}</Typography>
               </MenuItem>
             ))} */}
-            <LogoutBtn onClick={handleLogout}>logout</LogoutBtn>
+            {/* <LogoutBtn onClick={handleLogout}>logout</LogoutBtn> */}
           </Menu>
         </Box>
       </Toolbar>

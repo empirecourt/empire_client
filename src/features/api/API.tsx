@@ -105,6 +105,7 @@ tagTypes: ['Users','Bookings'],
       }),
       getBookingsByUser: builder.query<BookingModel, any>({
         query: (userId) => `/bookings/userBookings/${userId}`,
+        transformResponse: (response: any) => response.reverse(),
         providesTags: (result, error, id: any) =>  [{ type:'Bookings', id: 'BOOK' }],  
       }),
       addBooking: builder.mutation<BookingModel, Partial<BookingModel>>({

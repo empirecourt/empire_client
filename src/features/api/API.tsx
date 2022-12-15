@@ -24,9 +24,11 @@ tagTypes: ['Users','Bookings'],
   endpoints: (builder) => ({
      getUsers: builder.query<UserModel[], void>({
       query: ()  => '/users',
+      transformResponse: (response: any) => response.reverse(),
         providesTags: (result) => result ? [...result.map(({ id }) => ({ type: 'Users' as const, id })),
                 { type: 'Users', id: 'USER' },
               ] : [{ type: 'Users', id: 'USER' }],
+      
     }),
   
     getUser: builder.query<UserModel, any>({
@@ -41,7 +43,7 @@ tagTypes: ['Users','Bookings'],
         body,
       }
        },
-       invalidatesTags: [{type: 'Users', id: 'USER'}],
+                            
      }),
      googleSignIn: builder.mutation<UserModel, Partial<UserModel>>({
       query(body) {
@@ -91,6 +93,7 @@ tagTypes: ['Users','Bookings'],
 
        getBookings: builder.query<BookingModel[], void>({
         query: ()  => '/bookings',
+        transformResponse: (response: any) => response.reverse(),
           providesTags: (result) => result ? [...result.map(({ id }) => ({ type: 'Bookings' as const, id })),
                   { type: 'Bookings', id: 'BOOK' },
                 ] : [{ type: 'Bookings', id: 'BOOK' }],

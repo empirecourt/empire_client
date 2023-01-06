@@ -163,17 +163,16 @@ let navigate = useNavigate();
   
    }
     const handleSubmit = async (e: any) => { 
-   
+      e.preventDefault();
       if(isRegister === false) {
         signupUser({...form});
       } else {
-        e.preventDefault();
         signinUser({...form});
       }
     }
 useEffect(() => { 
   if(signinIsSuccess) {
-     dispatch(setUsers({ user: data?.data, token: data?.token , refreshToken: data?.refreshToken}));
+    dispatch(setUsers({ user: data?.data, token: data?.token , refreshToken: data?.refreshToken}));
      toast.success('signin successfully....')
       navigate('/homepage');
   }
@@ -184,7 +183,7 @@ useEffect(() => {
     setIsRegister(true);
   }
   
-}, [signinIsSuccess, signupIsSuccess,  dispatch, navigate])
+}, [signinIsSuccess, signupIsSuccess,  dispatch])
 
 
  

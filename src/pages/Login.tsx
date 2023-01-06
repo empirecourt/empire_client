@@ -163,30 +163,27 @@ let navigate = useNavigate();
   
    }
     const handleSubmit = async (e: any) => { 
-      e.preventDefault()
       if(isRegister === false) {
         signupUser({...form});
       } else {
         signinUser({...form});
       }
     }
-    console.log(data);
 useEffect(() => { 
   if(signinIsSuccess) {
      dispatch(setUsers({ user: data?.data, token: data?.token , refreshToken: data?.refreshToken}));
      toast.success('signin successfully....')
       navigate('/homepage');
-      // setForm(initialData)
   }
   if(signupIsSuccess) {
     toast.success('signup successfully....');
     navigate('/');
-    setForm(initialData)
+    setForm(initialData);
     setIsRegister(true);
     
   }
   
-}, [signinIsSuccess, signupIsSuccess, data?.data, data?.token, data?.refreshToken, dispatch, navigate, setForm])
+}, [signinIsSuccess, signupIsSuccess,  dispatch, navigate, setForm, setIsRegister, toast])
 
 
  

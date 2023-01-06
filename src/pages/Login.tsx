@@ -163,6 +163,7 @@ let navigate = useNavigate();
   
    }
     const handleSubmit = async (e: any) => { 
+      e.preventDefault();
       if(isRegister === false) {
         signupUser({...form});
       } else {
@@ -180,10 +181,10 @@ useEffect(() => {
     navigate('/');
     setForm(initialData);
     setIsRegister(true);
-    
+    window.location.reload();
   }
   
-}, [signinIsSuccess, signupIsSuccess,  dispatch, navigate, setForm, setIsRegister, toast])
+}, [signinIsSuccess, signupIsSuccess,  dispatch, navigate])
 
 
  

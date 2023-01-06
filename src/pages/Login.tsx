@@ -166,24 +166,32 @@ let navigate = useNavigate();
       e.preventDefault();
       if(isRegister === false) {
         signupUser({...form});
+          // navigate('/');
+          // toast.success('signup successfully....');
       } else {
         signinUser({...form});
+          // navigate('/homepage');
+          // toast.success('signin successfully....')
       }
-    }
+    };
+
 useEffect(() => { 
   if(signinIsSuccess) {
     dispatch(setUsers({ user: data?.data, token: data?.token , refreshToken: data?.refreshToken}));
-     toast.success('signin successfully....')
-      navigate('/homepage');
+    navigate('/homepage');
+    toast.success('signin successfully....')
   }
+}, [signinIsSuccess, dispatch, toast, data?.data, data?.token, data?.refreshToken ])
+
+useEffect(() => { 
   if(signupIsSuccess) {
     toast.success('signup successfully....');
-    navigate('/');
+   navigate('/');
     setForm(initialData);
     setIsRegister(true);
   }
   
-}, [signinIsSuccess, signupIsSuccess,  dispatch])
+}, [ signupIsSuccess, navigate, setForm, setIsRegister])
 
 
  
@@ -228,6 +236,7 @@ useEffect(() => {
     <Button type='submit'>Login</Button>
     </Grid>
     </Grid>
+    <ToastContainer />   
     </FormInnerContainer>    
    
                 </StyledContainer>
@@ -313,7 +322,6 @@ useEffect(() => {
     </Grid>
     </Grid>
     </FormInnerContainer> 
-    <ToastContainer />   
     </StyledContainer>
     <Grid item lg={3} md={3} sm={2} xs={1}></Grid>
     </Grid>  

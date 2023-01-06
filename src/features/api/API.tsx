@@ -33,7 +33,7 @@ tagTypes: ['Users','Bookings'],
   
     getUser: builder.query<UserModel, any>({
       query: (id) => `/users/${id}`,
-      providesTags: (result, error, id: any) =>  [{ type:'Users', id }],  
+      providesTags: (result, error, id: any) =>  [{ type:'Users', id: 'USER' }],  
     }),
      signinUser: builder.mutation<UserModel, Partial<UserModel>>({
       query(body) {
@@ -43,7 +43,7 @@ tagTypes: ['Users','Bookings'],
         body,
       }
        },
-                            
+       invalidatesTags: [{type: 'Users', id: 'USER'}],                   
      }),
      googleSignIn: builder.mutation<UserModel, Partial<UserModel>>({
       query(body) {
@@ -101,7 +101,7 @@ tagTypes: ['Users','Bookings'],
     
       getBooking: builder.query<BookingModel, any>({
         query: (id) => `/bookings/${id}`,
-        providesTags: (result, error, id: any) =>  [{ type:'Bookings', id }],  
+        providesTags: (result, error, id: any) =>  [{ type:'Bookings', id: 'BOOK' }],  
       }),
       getBookingsByUser: builder.query<BookingModel, any>({
         query: (userId) => `/bookings/userBookings/${userId}`,

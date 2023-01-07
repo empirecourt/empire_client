@@ -11,7 +11,7 @@ export const API = createApi({
     baseUrl: process.env.REACT_APP_SERVER_URL || 'http://localhost:5000',
     prepareHeaders:  (headers, { getState }) => {
       const token = ( getState() as RootState).userState.token
-      console.log('states: ', token);
+     // console.log('states: ', token);
       if (token) {
         headers.set('authorization', `Bearer ${token}` );
       }

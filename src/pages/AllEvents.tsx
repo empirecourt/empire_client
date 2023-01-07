@@ -87,11 +87,13 @@ const Active = styled.p`
 color: #fff;
 background-color: green;
 padding: 2px 6px 4px;
+border-radius: 5px;
 `
 const Expired = styled.p`
 color: #fff;
 background-color: red;
 padding: 2px 6px 4px;
+border-radius: 5px;
 `
 
 function AllEvents() {

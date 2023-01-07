@@ -10,6 +10,7 @@ import Avatar from '@mui/material/Avatar';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import NavBar from '../components/NavBar';
 import AdminNavBar from '../components/AdminNavBar';
+import moment from 'moment';
 
 const StyledBox = styled(Box)`
 height: 100vh;
@@ -82,14 +83,24 @@ const ActionContaner = styled.div`
 display: flex;
 justify-content: center;
 `
+const Active = styled.p`
+color: #fff;
+background-color: green;
+padding: 2px 6px 4px;
+`
+const Expired = styled.p`
+color: #fff;
+background-color: red;
+padding: 2px 6px 4px;
+`
 
 function AllEvents() {
-    
-//   const {user} = useAppSelector(selectCurrentUser);
+  let objectDate = moment().format('YYYY-MM-DD');
+
   {/* @ts-ignore:next-line */}
     const {data} = useGetBookingsQuery();
     const [deleteBooking] = useDeleteBookingMutation();
-console.log(data)
+
   return (
     <StyledBox>
      <AdminNavBar />
@@ -105,6 +116,7 @@ console.log(data)
       <Th>Mobile</Th>
       <Th>Start date & time</Th>
       <Th>End date & time</Th>
+      <Th>Status</Th>
       <Th>Action</Th>
    </Tr>
    </Thead>
@@ -123,6 +135,7 @@ console.log(data)
       <Td>{result?.phone}</Td>
       <Td>{result?.startDate} {result?.startTime}</Td>
       <Td>{result?.endDate} {result?.endTime}</Td>
+      <Td>{ result?.endDate >= objectDate  ?  <Active>Active</Active> : <Expired>Expired</Expired>}</Td>
       <Td><ActionContaner>
           <DeleteContainer onClick={() => deleteBooking(result?._id)}>
           <DeleteForeverOutlinedIcon sx={{ fontSize: 15, marginBottom: -0.3  }} />

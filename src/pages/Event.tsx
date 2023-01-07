@@ -89,7 +89,7 @@ function Event() {
   const userId = user?._id;
     const {data} = useGetBookingsByUserQuery(userId)
     const [deleteBooking] = useDeleteBookingMutation();
-console.log(data)
+
   return (
     <StyledBox>
      <NavBar />

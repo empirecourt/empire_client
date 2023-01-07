@@ -90,7 +90,7 @@ function Users() {
   {/* @ts-ignore:next-line */}
     const {data} =  useGetUsersQuery();
     const [deleteUser] = useDeleteUserMutation();
-console.log(data)
+
   return (
     <StyledBox>
      <AdminNavBar />

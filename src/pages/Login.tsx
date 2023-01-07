@@ -138,7 +138,6 @@ function Login() {
    }
    const dispatch = useAppDispatch();
               
-console.log(form);
 let navigate = useNavigate();
   
    const handleUpload = async () => {

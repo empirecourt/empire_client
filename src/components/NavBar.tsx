@@ -55,7 +55,7 @@ function NavBar() {
       setAnchorElUser(null);
     };
     const {user} = useAppSelector(selectCurrentUser);
-console.log(user);
+
 const dispatchLogOut = useDispatch();
       
       const handleLogout = () => {

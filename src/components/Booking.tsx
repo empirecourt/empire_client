@@ -112,7 +112,6 @@ if(isError) {
 }
 }, [navigate, isError, isSuccess]);      
 
- console.log(formData);
   return (
     <StyledBox>
     <Form onSubmit={handleSubmit}>
